@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Página con Logo y Hola</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            background: #ffffff;
+        }
+        .logo-container {
+            position: relative;
+            width: 800px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .logo-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: 1;
+        }
+        .logo-fg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: 3;
+            transform: translate(-50%, -50%) scale(1.4);
+        }
+        /* Ajusta estos valores según tu superposición */
+        :root {
+            --agua-img-width: 400px;
+            --agua-img-overlap: 20px;
+            --agua-img-effective: 380px; /* 400 - 20 */
+        }
+        .agua-wrapper {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+            transform: translate(0%, 10%) scale(1.4);
+        }
+        .agua-wrapper2 {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+            transform: translate(0%, 30%) scale(1.4);
+        }
+        .agua-move {
+            display: flex;
+            width: calc(3 * var(--agua-img-effective));
+            height: 100%;
+            animation: agua-move-left 15s linear infinite;
+        }
+        .agua-move2 {
+            display: flex;
+            width: calc(3 * var(--agua-img-effective));
+            height: 100%;
+            animation: agua-move-left 30s linear infinite;
+        }
+        .agua-img {
+            width: var(--agua-img-width);
+            height: 100%;
+            object-fit: contain;
+            flex-shrink: 0;
+            margin-left: calc(-1 * var(--agua-img-overlap));
+        }
+        .agua-img:first-child {
+            margin-left: 0;
+        }
+        @keyframes agua-move-left {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-1 * var(--agua-img-effective)));
+            }
+        }
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 72px);
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="img/color1.png" alt="Logo fondo" class="logo-bg">
+            <img src="img/zurnipMask.png" alt="Logo principal" class="logo-fg">
+            <div class="agua-wrapper">
+                <div class="agua-move">
+                    <img src="img/agua2.png" alt="Agua decorativa" class="agua-img">
+                    <img src="img/agua2.png" alt="Agua decorativa" class="agua-img">
+                    <img src="img/agua2.png" alt="Agua decorativa" class="agua-img">
+                </div>
+            </div>
+            <div class="agua-wrapper2">
+                <div class="agua-move2">
+                    <img src="img/agua1.png" alt="Agua decorativa" class="agua-img">
+                    <img src="img/agua1.png" alt="Agua decorativa" class="agua-img">
+                    <img src="img/agua1.png" alt="Agua decorativa" class="agua-img">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        hola
+    </div>
+</body>
+</html>
