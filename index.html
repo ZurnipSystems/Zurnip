@@ -8,13 +8,15 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+            background-color: #4bc6ff;
         }
         .header {
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 16px;
-            background: #ffffff;
+            background: #4bc6ff;
+            position: relative;
         }
         .logo-container {
             position: relative;
@@ -44,7 +46,6 @@
             z-index: 3;
             transform: translate(-50%, -50%) scale(1.4);
         }
-        /* Ajusta estos valores según tu superposición */
         :root {
             --agua-img-width: 400px;
             --agua-img-overlap: 20px;
@@ -109,27 +110,181 @@
             height: calc(100vh - 72px);
             font-size: 2rem;
         }
-        .options-button{
-            background-color: white;
-            border-style: none;
-            border-color: white;
+
+        /* --- Gooey Button Styles --- */
+        .gooey-options-container {
             position: absolute;
-            top: 5%;
-            left: 5%;
+            top: 24px;
+            left: 24px;
+            z-index: 20;
+            width: 48px;
+            height: 48px;
+        }
+        .gooey-button-wrapper {
+            position: relative;
+            width: 48px;
+            height: 48px;
+        }
+
+        .gooey-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 48px;
+            height: 48px;
+            background: #00f3a1;
+            border-radius: 12px;
+            filter: url(#goo);
+            cursor: pointer;
+            overflow: visible;
+            z-index: 1;
+            transform: scale(3);
+        }
+        .blob {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            background: #00f3a1;
+            border-radius: 50%;
+            top: 0%;
+            left: 0%;
+            transform-origin: center;
+            animation: blob-move 4s ease-in-out infinite;
+        }
+        .blob:nth-child(1) {
+            transform: translate(-60%, 100%);
+            animation-delay: 0s;
+        }
+        .blob:nth-child(2) {
+            transform: translate(100%, -60%);
+            animation-delay: 1s;
+        }
+        .blob:nth-child(3) {
+            transform: translate(0%, 15%);
+            animation-delay: 2s;
+        }
+        .blob:nth-child(4) {
+            transform: translate(-15%, 15%);
+            animation-delay: 3s;
+        }
+        .blob:nth-child(5) {
+            transform: translate(250%, -100%);
+            animation-delay: 1.5s;
+        }
+        @keyframes blob-move {
+            0%, 100% {
+                transform-origin: center;
+                scale: 1;
+            }
+            50% {
+                scale: 1.3;
+            }
+        }
+        /* Imagen de opciones encima del botón */
+        .options-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 32px;
+            height: 32px;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            pointer-events: none; /* para que los clics pasen al botón */
+            user-select: none;
+        }
+        /* Popup Table */
+        .table-popup {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            padding: 12px;
+            border-radius: 12px;
+            color: white;
+            display: none;
+            width: 220px;
+            user-select: none;
+            font-size: 0.95rem;
+            background: rgba(0, 20, 40, 0.97);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+        .table-popup.active {
+            display: block;
+        }
+        table {
             width: 100%;
-            height: 100%;
-            object-fit: contain;
-            z-index: 4;
-            transform: translate(-50%, -50%) scale(0.05);
+            border-collapse: collapse;
+        }
+        th, td {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 6px;
+            text-align: left;
+        }
+        th {
+            font-size: 1em;
+        }
+        td {
+            font-size: 0.95em;
+        }
+        /* Responsive: opcional, para pantallas pequeñas */
+        @media (max-width: 600px) 
+        {
+            .logo-container {
+                width: 100vw;
+                min-width: 0;
+            }
+            .gooey-options-container {
+                top: 12px;
+                left: 12px;
+            }
+            .gooey-button,
+            .gooey-button-wrapper {
+                width: 38px;
+                height: 38px;
+            }
+            .options-img {
+                width: 26px;
+                height: 26px;
+            }
+            .table-popup {
+                width: 95vw;
+                left: 2vw;
+                right: auto;
+            }
+            .gooey-button-shadow,
+            .blob-shadow {
+                width: 38px;
+                height: 38px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="optionsSideBar">
-            <button class="options-button" id="optionsBtn" title="Opciones">
-                <img src="img/Options.png" alt="Opciones" width="100%">
-            </button>
+        <!-- Botón de opciones gelatinoso en esquina superior izquierda con sombra debajo -->
+        <div class="gooey-options-container">
+            <div class="gooey-button-wrapper">
+                <!-- Botón principal -->
+                <div class="gooey-button" id="gooeyBtn" title="Opciones">
+                    <div class="blob"></div>
+                    <div class="blob"></div>
+                    <div class="blob"></div>
+                    <div class="blob"></div>
+                    <div class="blob"></div>
+                </div>
+                <img src="img/Options.png" alt="Opciones" class="options-img" draggable="false">
+            </div>
+            <div class="table-popup" id="popup">
+                <table>
+                    <thead>
+                        <tr><th>Nombre</th><th>Edad</th><th>Email</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Ana</td><td>24</td><td>ana@mail.com</td></tr>
+                        <tr><td>Pedro</td><td>30</td><td>pedro@mail.com</td></tr>
+                        <tr><td>Luisa</td><td>28</td><td>luisa@mail.com</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="logo-container">
             <img src="img/color1.png" alt="Logo fondo" class="logo-bg">
@@ -153,5 +308,38 @@
     <div class="content">
         hola
     </div>
+    <!-- SVG filter para efecto gooey -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="position:absolute; width:0; height:0">
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+          <feColorMatrix in="blur" mode="matrix" values="
+            1 0 0 0 0  
+            0 1 0 0 0  
+            0 0 1 0 0  
+            0 0 0 30 -15" result="goo"
+          />
+          <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+        </filter>
+      </defs>
+    </svg>
+    <script>
+      const btn = document.getElementById('gooeyBtn');
+      const popup = document.getElementById('popup');
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        popup.classList.toggle('active');
+      });
+      // Cierra el popup si se hace click fuera
+      document.addEventListener('click', (e) => 
+      {
+        if (popup.classList.contains('active')) {
+          if (!btn.contains(e.target) && !popup.contains(e.target)) 
+          {
+            popup.classList.remove('active');
+          }
+        }
+      });
+    </script>
 </body>
 </html>
