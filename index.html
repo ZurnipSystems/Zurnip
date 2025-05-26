@@ -109,10 +109,28 @@
             height: calc(100vh - 72px);
             font-size: 2rem;
         }
+        .options-button{
+            background-color: white;
+            border-style: none;
+            border-color: white;
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: 4;
+            transform: translate(-50%, -50%) scale(0.05);
+        }
     </style>
 </head>
 <body>
     <div class="header">
+        <div class="optionsSideBar">
+            <button class="options-button" id="optionsBtn" title="Opciones">
+                <img src="img/Options.png" alt="Opciones" width="100%">
+            </button>
+        </div>
         <div class="logo-container">
             <img src="img/color1.png" alt="Logo fondo" class="logo-bg">
             <img src="img/zurnipMask.png" alt="Logo principal" class="logo-fg">
